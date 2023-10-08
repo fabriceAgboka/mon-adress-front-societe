@@ -2,14 +2,18 @@
   <div
     class="main-menu menu-fixed menu-accordion menu-shadow"
     :class="[
-      { 'expanded': !isVerticalMenuCollapsed || (isVerticalMenuCollapsed && isMouseHovered) },
-      skin === 'semi-dark' ? 'menu-dark' : 'menu-light'
+      {
+        expanded:
+          !isVerticalMenuCollapsed ||
+          (isVerticalMenuCollapsed && isMouseHovered),
+      },
+      skin === 'semi-dark' ? 'menu-dark' : 'menu-light',
     ]"
     @mouseenter="updateMouseHovered(true)"
     @mouseleave="updateMouseHovered(false)"
   >
     <!-- main menu header-->
-    <div class="navbar-header expanded" style="background-color: #00513A;">
+    <div class="navbar-header expanded" style="background-color: #4b0082">
       <slot
         name="header"
         :toggleVerticalMenuActive="toggleVerticalMenuActive"
@@ -17,18 +21,11 @@
         :collapseTogglerIcon="collapseTogglerIcon"
       >
         <ul class="nav navbar-nav flex-row">
-
           <!-- Logo & Text -->
           <li class="nav-item mr-auto">
-            <b-link
-              class="navbar-brand"
-              to="/"
-            >
+            <b-link class="navbar-brand" to="/">
               <span class="brand-logo">
-                <b-img
-                  :src="appLogoImage"
-                  alt="logo"
-                />
+                <b-img :src="appLogoImage" alt="logo" />
               </span>
             </b-link>
           </li>
@@ -38,17 +35,18 @@
     <!-- / main menu header-->
 
     <!-- Shadow -->
-    <div
-      :class="{'d-block': shallShadowBottom}"
-      class="shadow-bottom"
-    />
+    <div :class="{ 'd-block': shallShadowBottom }" class="shadow-bottom" />
 
     <!-- main menu content-->
     <vue-perfect-scrollbar
       :settings="perfectScrollbarSettings"
       class="main-menu-content scroll-area"
       tagname="ul"
-      @ps-scroll-y="evt => { shallShadowBottom = evt.srcElement.scrollTop > 0 }"
+      @ps-scroll-y="
+        (evt) => {
+          shallShadowBottom = evt.srcElement.scrollTop > 0;
+        }
+      "
     >
       <vertical-nav-menu-items
         :items="navMenuItems"
@@ -60,14 +58,14 @@
 </template>
 
 <script>
-import navMenuItems from '@/navigation/vertical'
-import VuePerfectScrollbar from 'vue-perfect-scrollbar'
-import { BLink, BImg } from 'bootstrap-vue'
-import { provide, computed, ref } from '@vue/composition-api'
-import useAppConfig from '@core/app-config/useAppConfig'
-import { $themeConfig } from '@themeConfig'
-import VerticalNavMenuItems from './components/vertical-nav-menu-items/VerticalNavMenuItems.vue'
-import useVerticalNavMenu from './useVerticalNavMenu'
+import navMenuItems from "@/navigation/vertical";
+import VuePerfectScrollbar from "vue-perfect-scrollbar";
+import { BLink, BImg } from "bootstrap-vue";
+import { provide, computed, ref } from "@vue/composition-api";
+import useAppConfig from "@core/app-config/useAppConfig";
+import { $themeConfig } from "@themeConfig";
+import VerticalNavMenuItems from "./components/vertical-nav-menu-items/VerticalNavMenuItems.vue";
+import useVerticalNavMenu from "./useVerticalNavMenu";
 
 export default {
   components: {
@@ -93,24 +91,26 @@ export default {
       collapseTogglerIcon,
       toggleCollapsed,
       updateMouseHovered,
-    } = useVerticalNavMenu(props)
+    } = useVerticalNavMenu(props);
 
-    const { skin } = useAppConfig()
+    const { skin } = useAppConfig();
 
     // Shadow bottom is UI specific and can be removed by user => It's not in `useVerticalNavMenu`
-    const shallShadowBottom = ref(false)
+    const shallShadowBottom = ref(false);
 
-    provide('isMouseHovered', isMouseHovered)
+    provide("isMouseHovered", isMouseHovered);
 
     const perfectScrollbarSettings = {
       maxScrollbarLength: 60,
       wheelPropagation: false,
-    }
+    };
 
-    const collapseTogglerIconFeather = computed(() => (collapseTogglerIcon.value === 'unpinned' ? 'CircleIcon' : 'DiscIcon'))
+    const collapseTogglerIconFeather = computed(() =>
+      collapseTogglerIcon.value === "unpinned" ? "CircleIcon" : "DiscIcon"
+    );
 
     // App Name
-    const { appName, appLogoImage } = $themeConfig.app
+    const { appName, appLogoImage } = $themeConfig.app;
 
     return {
       navMenuItems,
@@ -131,9 +131,9 @@ export default {
       // App Name
       appName,
       appLogoImage,
-    }
+    };
   },
-}
+};
 </script>
 
 <style lang="scss">
