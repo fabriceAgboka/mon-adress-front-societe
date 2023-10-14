@@ -17,7 +17,7 @@ export default [{
         route: 'adresses-encours',
       },
       {
-        title: 'Actif',
+        title: 'A jours',
         route: 'adresses-actif',
       },
       {
@@ -35,8 +35,8 @@ export default [{
     ],
   },
   {
-    title: 'Services',
-    route: 'services',
-    icon: 'FileIcon',
+    title: 'Administrateurs',
+    route: 'admins',
+    icon: 'UserIcon',
   },
 ]

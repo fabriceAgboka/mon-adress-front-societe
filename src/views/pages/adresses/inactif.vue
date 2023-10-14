@@ -98,69 +98,6 @@
               <template #cell(created_at)="data">
                 {{ format_date(data.value) }}
               </template>
-
-              <template #cell(user_id)="data">
-                <span>
-                  <span>
-                    <b-dropdown
-                      variant="link"
-                      toggle-class="text-decoration-none"
-                      no-caret
-                    >
-                      <template v-slot:button-content>
-                        <feather-icon
-                          icon="MoreVerticalIcon"
-                          size="16"
-                          class="text-body align-middle mr-25"
-                        />
-                      </template>
-                      <b-dropdown-item
-                        v-if="data.item.statut_id != 2"
-                        @click="change_status(data.item.id, 2)"
-                      >
-                        <feather-icon
-                          icon="CheckIcon"
-                          class="mr-50 text-success"
-                        />
-                        <span>Activer</span>
-                      </b-dropdown-item>
-
-                      <b-dropdown-item
-                        v-if="data.item.statut_id != 3"
-                        @click="change_status(data.item.id, 3)"
-                      >
-                        <feather-icon
-                          icon="XOctagonIcon"
-                          class="mr-50 text-danger"
-                        />
-                        <span>Inactiver</span>
-                      </b-dropdown-item>
-
-                      <b-dropdown-item
-                        v-if="data.item.statut_id != 4"
-                        @click="change_status(data.item.id, 4)"
-                      >
-                        <feather-icon
-                          icon="AlertTriangleIcon"
-                          class="mr-50 text-warning"
-                        />
-                        <span>Suspendre</span>
-                      </b-dropdown-item>
-
-                      <b-dropdown-item
-                        v-if="data.item.statut_id != 5"
-                        @click="change_status(data.item.id, 5)"
-                      >
-                        <feather-icon
-                          icon="CircleIcon"
-                          class="mr-50 text-info"
-                        />
-                        <span>Traiter</span>
-                      </b-dropdown-item>
-                    </b-dropdown>
-                  </span>
-                </span>
-              </template>
             </b-table>
           </b-col>
 
@@ -252,11 +189,6 @@ export default {
           sortable: true,
         },
         {
-          key: "adresse_ville",
-          label: "Ville",
-          sortable: true,
-        },
-        {
           key: "typeadresse",
           label: "Type adresse",
           sortable: true,
@@ -264,11 +196,6 @@ export default {
         {
           key: "created_at",
           label: "Soumis le",
-          sortable: true,
-        },
-        {
-          key: "user_id",
-          label: "Actions",
           sortable: true,
         },
       ],

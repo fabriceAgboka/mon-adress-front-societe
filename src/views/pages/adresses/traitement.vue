@@ -257,18 +257,8 @@ export default {
           sortable: true,
         },
         {
-          key: "typeadresse",
-          label: "Type adresse",
-          sortable: true,
-        },
-        {
           key: "created_at",
           label: "Soumis le",
-          sortable: true,
-        },
-        {
-          key: "user_id",
-          label: "Actions",
           sortable: true,
         },
       ],

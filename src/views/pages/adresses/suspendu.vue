@@ -252,11 +252,6 @@ export default {
           sortable: true,
         },
         {
-          key: "adresse_ville",
-          label: "Ville",
-          sortable: true,
-        },
-        {
           key: "typeadresse",
           label: "Type adresse",
           sortable: true,
@@ -264,11 +259,6 @@ export default {
         {
           key: "created_at",
           label: "Soumis le",
-          sortable: true,
-        },
-        {
-          key: "user_id",
-          label: "Actions",
           sortable: true,
         },
       ],

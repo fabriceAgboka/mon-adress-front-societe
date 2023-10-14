@@ -122,40 +122,7 @@
                           icon="CheckIcon"
                           class="mr-50 text-success"
                         />
-                        <span>Activer</span>
-                      </b-dropdown-item>
-
-                      <b-dropdown-item
-                        v-if="data.item.statut_id != 3"
-                        @click="change_status(data.item.id, 3)"
-                      >
-                        <feather-icon
-                          icon="XOctagonIcon"
-                          class="mr-50 text-danger"
-                        />
-                        <span>Inactiver</span>
-                      </b-dropdown-item>
-
-                      <b-dropdown-item
-                        v-if="data.item.statut_id != 4"
-                        @click="change_status(data.item.id, 4)"
-                      >
-                        <feather-icon
-                          icon="AlertTriangleIcon"
-                          class="mr-50 text-warning"
-                        />
-                        <span>Suspendre</span>
-                      </b-dropdown-item>
-
-                      <b-dropdown-item
-                        v-if="data.item.statut_id != 5"
-                        @click="change_status(data.item.id, 5)"
-                      >
-                        <feather-icon
-                          icon="CircleIcon"
-                          class="mr-50 text-info"
-                        />
-                        <span>Traiter</span>
+                        <span>A jours</span>
                       </b-dropdown-item>
                     </b-dropdown>
                   </span>
@@ -249,11 +216,6 @@ export default {
         {
           key: "adresse",
           label: "Adresse",
-          sortable: true,
-        },
-        {
-          key: "adresse_ville",
-          label: "Ville",
           sortable: true,
         },
         {
