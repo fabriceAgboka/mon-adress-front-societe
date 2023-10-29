@@ -23,15 +23,7 @@ export default [{
       {
         title: 'Inactif',
         route: 'adresses-inactif',
-      },
-      {
-        title: 'Suspendu',
-        route: 'adresses-suspendu',
-      },
-      {
-        title: 'Traiter',
-        route: 'adresses-traitement',
-      },
+      }
     ],
   },
   {

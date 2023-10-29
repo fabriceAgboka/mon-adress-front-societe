@@ -32,6 +32,9 @@
                   name="email"
                   placeholder="john@example.com"
                 />
+                <small v-if="errors.message" class="text-danger">{{
+                  errors.message[0]
+                }}</small>
                 <small v-if="errors.email" class="text-danger">{{
                   errors.email[0]
                 }}</small>
@@ -148,13 +151,13 @@ export default {
         .post("/login", this.form)
         .then((response) => {
           console.log("done");
-          let user = response.data.user;
-          auth.authenticate(user);
+          let donnee = response.data;
+          auth.authenticate(donnee);
 
           this.$toast({
             component: ToastificationContent,
             props: {
-              title: "Bienvenue sur MON ADRESSE " + user.prenom + "!",
+              title: "Bienvenue sur MON ADRESSE " + donnee.user.prenom + "!",
               icon: "UserIcon",
               variant: "success",
             },

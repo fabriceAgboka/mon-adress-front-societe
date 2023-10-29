@@ -95,6 +95,17 @@
                 </b-badge>
               </template>
 
+              <template #cell(user)="data">
+                <b-link
+                  class="ml-25"
+                  :to="{
+                    name: 'users_adresses',
+                    params: { id: data.item.user_id },
+                  }"
+                  >{{ data.item.user }}</b-link
+                >
+              </template>
+
               <template #cell(created_at)="data">
                 {{ format_date(data.value) }}
               </template>
@@ -133,6 +144,7 @@ import {
   BButton,
   BDropdown,
   BDropdownItem,
+  BLink,
 } from "bootstrap-vue";
 import moment from "moment";
 import Swal from "sweetalert2";
@@ -154,6 +166,7 @@ export default {
     BButton,
     BDropdown,
     BDropdownItem,
+    BLink,
   },
   data() {
     return {

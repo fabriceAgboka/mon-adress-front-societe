@@ -1,13 +1,13 @@
 export default {
     authenticate(data) {
-        // localStorage.setItem('user', JSON.stringify(data.user))
+        localStorage.setItem('user', JSON.stringify(data.user))
 
-        // localStorage.setItem('token', data.access_token)
-        // localStorage.setItem('refreshToken', data.access_token)
-        
-        localStorage.setItem('userData', JSON.stringify(data))
-        localStorage.setItem('userId', data.id)
-        if(data.access_token){
+        localStorage.setItem('token', data.access_token)
+        localStorage.setItem('refreshToken', data.access_token)
+
+        localStorage.setItem('userData', JSON.stringify(data.user))
+        localStorage.setItem('userId', data.user.id)
+        if (data.access_token) {
             localStorage.setItem('access_token', data.access_token)
         }
     },

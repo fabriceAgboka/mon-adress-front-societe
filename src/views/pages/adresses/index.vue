@@ -89,6 +89,17 @@
               :filter-included-fields="filterOn"
               @filtered="onFiltered"
             >
+              <template #cell(user)="data">
+                <b-link
+                  class="ml-25"
+                  :to="{
+                    name: 'users_adresses',
+                    params: { id: data.item.user_id },
+                  }"
+                  >{{ data.item.user }}</b-link
+                >
+              </template>
+
               <template #cell(statut)="data">
                 <b-badge :variant="status[data.item.statut_id - 1]">
                   {{ data.value }}
@@ -163,6 +174,7 @@ import {
   BButton,
   BDropdown,
   BDropdownItem,
+  BLink,
 } from "bootstrap-vue";
 import moment from "moment";
 import Swal from "sweetalert2";
@@ -184,6 +196,7 @@ export default {
     BButton,
     BDropdown,
     BDropdownItem,
+    BLink,
   },
   data() {
     return {

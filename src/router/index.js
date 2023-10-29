@@ -109,13 +109,25 @@ const router = new VueRouter({
       },
     },
     {
-      path: '/services',
-      name: 'services',
-      component: () => import('@/views/pages/services/index.vue'),
+      path: '/admins',
+      name: 'admins',
+      component: () => import('@/views/pages/admins/index.vue'),
       meta: {
-        pageTitle: 'Services',
+        pageTitle: 'Administrateurs',
         breadcrumb: [{
-          text: 'Services',
+          text: 'admins',
+          active: true,
+        }, ],
+      },
+      beforeEnter: ifAuthenticated,
+    }, {
+      path: '/users/:id',
+      name: 'users_adresses',
+      component: () => import('@/views/pages/users/index.vue'),
+      meta: {
+        pageTitle: 'Utilisateur',
+        breadcrumb: [{
+          text: 'users',
           active: true,
         }, ],
       },
