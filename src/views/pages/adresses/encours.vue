@@ -255,7 +255,7 @@ export default {
           id: 1,
         },
         {
-          name: "metre à jours",
+          name: "mettre à jours",
           link: "/actif",
           id: 2,
         },
@@ -353,6 +353,7 @@ export default {
         this.$http
           .post("/societe/adresses/status" + data.link, form)
           .then((res) => {
+            this.index();
             this.$toast({
               component: ToastificationContent,
               props: {

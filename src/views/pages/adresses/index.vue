@@ -260,7 +260,7 @@ export default {
           id: 1,
         },
         {
-          name: "activer",
+          name: "mettre à jour",
           link: "/actif",
           id: 2,
         },

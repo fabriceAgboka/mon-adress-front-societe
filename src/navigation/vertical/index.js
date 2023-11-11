@@ -27,7 +27,7 @@ export default [{
     ],
   },
   {
-    title: 'Administrateurs',
+    title: 'Gestionnaires',
     route: 'admins',
     icon: 'UserIcon',
   },

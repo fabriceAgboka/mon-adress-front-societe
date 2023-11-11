@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 style="color: black">Liste des administrateurs</h2>
+    <h2 style="color: black">Liste des gérants</h2>
     <b-button
       v-ripple.400="'rgba(113, 102, 240, 0.15)'"
       v-b-modal.add-admin-modal
@@ -272,6 +272,11 @@ export default {
         {
           key: "email",
           label: "Email",
+          sortable: true,
+        },
+        {
+          key: "telephone",
+          label: "Telephone",
           sortable: true,
         },
         {
