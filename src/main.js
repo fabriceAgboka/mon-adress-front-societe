@@ -1,5 +1,8 @@
 import Vue from 'vue'
-import { ToastPlugin, ModalPlugin } from 'bootstrap-vue'
+import {
+  ToastPlugin,
+  ModalPlugin
+} from 'bootstrap-vue'
 import VueCompositionAPI from '@vue/composition-api'
 
 import router from './router'
@@ -25,6 +28,10 @@ require('@core/scss/core.scss')
 
 // import assets styles
 require('@/assets/scss/style.scss')
+
+import vSelect from "vue-select";
+Vue.component("v-select", vSelect);
+import "vue-select/dist/vue-select.css";
 
 Vue.config.productionTip = false
 

@@ -73,15 +73,20 @@
                   label="Catégories de la société"
                   label-for="login-categorie"
                 >
-                  <b-form-input
-                    id="categorie"
-                    v-model="form.societe_categories"
-                    name="categorie"
-                    placeholder="+1 30 40 56 40"
+                  <v-select
+                    v-model="form.societe_categories_data"
+                    :options="categories"
+                    multiple
+                    taggable
+                    push-tags
+                    placeholder="Choisir"
+                    label="name"
                   />
-                  <small v-if="errors.societe_categories" class="text-danger">{{
-                    errors.societe_categories[0]
-                  }}</small>
+                  <small
+                    v-if="errors.societe_categories_data"
+                    class="text-danger"
+                    >{{ errors.societe_categories_data[0] }}</small
+                  >
                 </b-form-group>
                 <b-button
                   type="submit"
@@ -199,6 +204,15 @@
                 >
                 <div class="mb-2"></div>
               </div>
+
+              <div v-if="step == 3">
+                <p style="font-size: 20px; color: #014612; font-weight: bold">
+                  Félicitation votre inscription est valide.
+                </p>
+                <p style="font-size: 20px; color: #014612; font-weight: bold">
+                  Veuillez valider votre inscription via otp
+                </p>
+              </div>
             </b-form>
           </validation-observer>
         </b-col>
@@ -227,9 +241,11 @@ import { togglePasswordVisibility } from "@core/mixins/ui/forms";
 import store from "@/store/index";
 import auth from "@/helpers/auth";
 import ToastificationContent from "@core/components/toastification/ToastificationContent.vue";
+import vSelect from "vue-select";
 
 export default {
   components: {
+    vSelect,
     BRow,
     BCol,
     BFormGroup,
@@ -255,9 +271,12 @@ export default {
         societe_name: "",
         societe_email: "",
         societe_phone: "",
-        societe_categories: "",
+        societe_categories_data: "",
+        societe_categories: [],
         status: "",
       },
+      categories: "",
+      loading: false,
 
       sideImg: require("@/assets/images/pages/login-v2.svg"),
       // validation rulesimport store from '@/store/index'
@@ -285,22 +304,30 @@ export default {
       return this.sideImg;
     },
   },
+  mounted() {
+    // Set the initial number of items
+    this.index();
+  },
   methods: {
-    register() {
+    getSelectedCategoryIds() {
+      this.form.societe_categories_data.forEach((category) => {
+        this.form.societe_categories.push(category.id);
+      });
+    },
+    async register() {
+      this.getSelectedCategoryIds();
+
       console.log("register");
       this.disabled = true;
-      this.$http
+      await this.$http
         .post("/societes/register", this.form)
         .then((response) => {
           console.log("done");
-          let donnee = response.data;
-
-          auth.authenticate(donnee);
-
+          this.step = 3;
           this.$toast({
             component: ToastificationContent,
             props: {
-              title: "Bienvenue sur MON ADRESSE " + donnee.user.prenom + "!",
+              title: "Inscription réussie!",
               icon: "UserIcon",
               variant: "success",
             },
@@ -310,6 +337,19 @@ export default {
           this.disabled = false;
           console.log("error", errors);
           this.errors = errors.response.data.errors;
+        });
+    },
+    index() {
+      this.loading = false;
+      this.$http
+        .get("/categories")
+        .then((res) => {
+          this.categories = res.data;
+
+          this.loading = true;
+        })
+        .catch((errors) => {
+          //errors
         });
     },
   },
