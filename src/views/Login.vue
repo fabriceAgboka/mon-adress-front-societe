@@ -71,6 +71,14 @@
                 >Connexion</b-button
               >
             </b-form>
+            <b-link
+              class="ml-25"
+              :to="{
+                name: 'register',
+                params: {},
+              }"
+              >S'inscrire ?</b-link
+            >
           </validation-observer>
         </b-col>
       </b-col>
@@ -92,6 +100,7 @@ import {
   BImg,
   BForm,
   BButton,
+  BLink,
 } from "bootstrap-vue";
 import { required, email } from "@validations";
 import { togglePasswordVisibility } from "@core/mixins/ui/forms";
@@ -111,6 +120,7 @@ export default {
     BForm,
     BButton,
     ValidationObserver,
+    BLink,
   },
   mixins: [togglePasswordVisibility],
   data() {

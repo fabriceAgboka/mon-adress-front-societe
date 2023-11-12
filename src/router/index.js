@@ -134,18 +134,6 @@ const router = new VueRouter({
       beforeEnter: ifAuthenticated,
     },
     {
-      path: '/register',
-      name: 'register',
-      component: () => import('@/views/Register.vue'),
-      meta: {
-        pageTitle: 'Inscription',
-        breadcrumb: [{
-          text: 'Inscription',
-          active: true,
-        }, ],
-      },
-    },
-    {
       path: '/second-page',
       name: 'second-page',
       component: () => import('@/views/SecondPage.vue'),
@@ -155,6 +143,13 @@ const router = new VueRouter({
           text: 'Second Page',
           active: true,
         }, ],
+      },
+    }, {
+      path: '/register',
+      name: 'register',
+      component: () => import('@/views/Register.vue'),
+      meta: {
+        layout: 'full',
       },
     },
     {
