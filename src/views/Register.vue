@@ -27,6 +27,10 @@
               <!-- Société -->
               <div v-if="step == 1">
                 <p class="text-primary">Information de la société</p>
+                <small v-if="error_data" class="text-danger">
+                  Erreur lors de la validation du formulaire. Veuillez remplir
+                  tous les champs obligatoire</small
+                >
                 <b-form-group label="Nom de la société" label-for="login-name">
                   <b-form-input
                     id="name"
@@ -101,6 +105,10 @@
               <!-- Utilisateur -->
               <div v-if="step == 2">
                 <p class="text-primary">Information personnelles</p>
+                <small v-if="error_data" class="text-danger">
+                  Erreur lors de la validation du formulaire. Veuillez remplir
+                  tous les champs obligatoire</small
+                >
                 <b-form-group
                   label="Nom de l'administrateur"
                   label-for="login-nom"
@@ -185,6 +193,96 @@
                   >
                 </b-form-group>
 
+                <b-button
+                  type="submit"
+                  :disabled="disabled"
+                  variant="primary"
+                  block
+                  @click="step = 3"
+                  >Suivant</b-button
+                >
+                <b-button
+                  type="submit"
+                  :disabled="disabled"
+                  variant="white"
+                  block
+                  @click="step = 1"
+                  >Précédant</b-button
+                >
+                <div class="mb-2"></div>
+              </div>
+
+              <div v-if="step == 3">
+                <p class="text-primary">Adresse complette</p>
+
+                <small v-if="error_data" class="text-danger">
+                  Erreur lors de la validation du formulaire. Veuillez remplir
+                  tous les champs obligatoire</small
+                >
+
+                <b-form-group
+                  label="Numéro civique(Optionnel)"
+                  label-for="login-numero"
+                >
+                  <b-form-input
+                    id="numero"
+                    v-model="form.adresse_numero"
+                    name="numero"
+                    placeholder="Numéro civique"
+                  />
+                  <small v-if="errors.adresse_numero" class="text-danger">{{
+                    errors.adresse_numero[0]
+                  }}</small>
+                </b-form-group>
+
+                <b-form-group label="Rue(Optionnel)" label-for="login-rue">
+                  <b-form-input
+                    id="rue"
+                    v-model="form.adresse_rue"
+                    name="rue"
+                    placeholder="Rue"
+                  />
+                  <small v-if="errors.adresse_ville" class="text-danger">{{
+                    errors.adresse_ville[0]
+                  }}</small>
+                </b-form-group>
+
+                <b-form-group label="Ville" label-for="login-ville">
+                  <b-form-input
+                    id="ville"
+                    v-model="form.adresse_ville"
+                    name="ville"
+                    placeholder="Ville"
+                  />
+                  <small v-if="errors.adresse_ville" class="text-danger">{{
+                    errors.adresse_ville[0]
+                  }}</small>
+                </b-form-group>
+
+                <b-form-group label="Province" label-for="login-province">
+                  <b-form-input
+                    id="province"
+                    v-model="form.adresse_province"
+                    name="province"
+                    placeholder="Province"
+                  />
+                  <small v-if="errors.adresse_province" class="text-danger">{{
+                    errors.adresse_province[0]
+                  }}</small>
+                </b-form-group>
+
+                <b-form-group label="Code postal" label-for="login-bp">
+                  <b-form-input
+                    id="bp"
+                    v-model="form.adresse_bp"
+                    name="bp"
+                    placeholder="Code postal"
+                  />
+                  <small v-if="errors.adresse_bp" class="text-danger">{{
+                    errors.adresse_bp[0]
+                  }}</small>
+                </b-form-group>
+
                 <!-- submit buttons -->
                 <b-button
                   type="submit"
@@ -199,19 +297,38 @@
                   :disabled="disabled"
                   variant="white"
                   block
-                  @click="step = 1"
+                  @click="step = 2"
                   >Précédant</b-button
                 >
                 <div class="mb-2"></div>
               </div>
 
-              <div v-if="step == 3">
-                <p style="font-size: 20px; color: #014612; font-weight: bold">
-                  Félicitation votre inscription est valide.
+              <div v-if="step == 4">
+                <p style="font-size: 16px; color: #014612; font-weight: bold">
+                  Félicitation votre inscription est valide. Veuillez valider
+                  votre inscription via otp
                 </p>
-                <p style="font-size: 20px; color: #014612; font-weight: bold">
-                  Veuillez valider votre inscription via otp
-                </p>
+
+                <b-form-group label="Code OTP" label-for="login-otp">
+                  <b-form-input
+                    id="otp"
+                    v-model="form.code"
+                    name="otp"
+                    placeholder="Code OTP"
+                  />
+                  <small v-if="errors.code" class="text-danger">{{
+                    errors.code[0]
+                  }}</small>
+                </b-form-group>
+
+                <b-button
+                  type="submit"
+                  :disabled="disabled2"
+                  variant="primary"
+                  block
+                  @click="register_otp"
+                  >Valider code</b-button
+                >
               </div>
             </b-form>
           </validation-observer>
@@ -274,6 +391,14 @@ export default {
         societe_categories_data: "",
         societe_categories: [],
         status: "",
+
+        adresse_numero: "",
+        adresse_rue: "",
+        adresse_ville: "",
+        adresse_province: "",
+        adresse_bp: "",
+
+        code: "",
       },
       categories: "",
       loading: false,
@@ -288,7 +413,9 @@ export default {
       },
       errors: {},
       disabled: false,
+      disabled2: false,
       errors_message: "",
+      error_data: false,
     };
   },
   computed: {
@@ -310,20 +437,26 @@ export default {
   },
   methods: {
     getSelectedCategoryIds() {
-      this.form.societe_categories_data.forEach((category) => {
-        this.form.societe_categories.push(category.id);
-      });
+      if (
+        this.form.societe_categories_data &&
+        this.form.societe_categories_data.length > 0
+      ) {
+        this.form.societe_categories_data.forEach((category) => {
+          this.form.societe_categories.push(category.id);
+        });
+      }
     },
     async register() {
       this.getSelectedCategoryIds();
 
       console.log("register");
       this.disabled = true;
+      this.error_data = false;
       await this.$http
         .post("/societes/register", this.form)
         .then((response) => {
           console.log("done");
-          this.step = 3;
+          this.step = 4;
           this.$toast({
             component: ToastificationContent,
             props: {
@@ -337,8 +470,44 @@ export default {
           this.disabled = false;
           console.log("error", errors);
           this.errors = errors.response.data.errors;
+          this.error_data = true;
         });
     },
+
+    async register_otp() {
+      console.log("register_otp");
+      this.disabled2 = true;
+      this.error_data = false;
+      await this.$http
+        .post("/verify-otp", this.form)
+        .then((response) => {
+          console.log("done");
+          let donnee = response.data;
+
+          if (donnee.user.type == "societe") {
+            auth.authenticate(donnee);
+
+            this.$toast({
+              component: ToastificationContent,
+              props: {
+                title: "Bienvenue sur MON ADRESSE " + donnee.user.prenom + "!",
+                icon: "UserIcon",
+                variant: "success",
+              },
+            });
+
+            this.$router.push("/");
+            window.location.href = "/";
+          }
+        })
+        .catch((errors) => {
+          this.disabled2 = false;
+          console.log("error", errors);
+          this.errors = errors.response.data.errors;
+          this.error_data = true;
+        });
+    },
+
     index() {
       this.loading = false;
       this.$http
