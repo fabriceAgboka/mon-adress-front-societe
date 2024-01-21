@@ -71,14 +71,18 @@
                 >Connexion</b-button
               >
             </b-form>
-            <b-link
-              class="ml-25"
+            <br />
+            <b-button
+              type="button"
+              :disabled="disabled"
+              variant="warning"
+              block
               :to="{
                 name: 'register',
                 params: {},
               }"
-              >S'inscrire ?</b-link
-            >
+              >J'inscris ma société
+            </b-button>
           </validation-observer>
         </b-col>
       </b-col>

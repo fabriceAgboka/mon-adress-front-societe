@@ -161,6 +161,17 @@ const router = new VueRouter({
       },
     },
     {
+      path: '/adresses-test',
+      name: 'adresses-test',
+      component: () => import('@/views/components/adresse.vue'),
+      meta: {
+        pageTitle: 'Adresses test',
+        breadcrumb: [{
+          text: 'Adresses test',
+          active: true,
+        }, ],
+      },
+    }, {
       path: '/error-404',
       name: 'error-404',
       component: () => import('@/views/error/Error404.vue'),

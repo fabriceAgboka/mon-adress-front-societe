@@ -213,14 +213,15 @@
               </div>
 
               <div v-if="step == 3">
-                <p class="text-primary">Adresse complette</p>
+                <p class="text-primary">Adresse complette de la société</p>
 
                 <small v-if="error_data" class="text-danger">
                   Erreur lors de la validation du formulaire. Veuillez remplir
                   tous les champs obligatoire</small
                 >
-
-                <b-form-group
+                <addresse-form @change="set_adresse()" />
+                <pre>add : {{ form.adresse }}</pre>
+                <!-- <b-form-group
                   label="Numéro civique(Optionnel)"
                   label-for="login-numero"
                 >
@@ -281,7 +282,7 @@
                   <small v-if="errors.adresse_bp" class="text-danger">{{
                     errors.adresse_bp[0]
                   }}</small>
-                </b-form-group>
+                </b-form-group> -->
 
                 <!-- submit buttons -->
                 <b-button
@@ -357,6 +358,7 @@ import { required, email } from "@validations";
 import { togglePasswordVisibility } from "@core/mixins/ui/forms";
 import store from "@/store/index";
 import auth from "@/helpers/auth";
+import AddresseForm from "./components/adresse.vue";
 import ToastificationContent from "@core/components/toastification/ToastificationContent.vue";
 import vSelect from "vue-select";
 
@@ -373,6 +375,7 @@ export default {
     BForm,
     BButton,
     ValidationObserver,
+    AddresseForm,
   },
   mixins: [togglePasswordVisibility],
   data() {
@@ -392,6 +395,7 @@ export default {
         societe_categories: [],
         status: "",
 
+        adresse: "",
         adresse_numero: "",
         adresse_rue: "",
         adresse_ville: "",
@@ -520,6 +524,10 @@ export default {
         .catch((errors) => {
           //errors
         });
+    },
+
+    set_adresse(adresse) {
+      this.form.adresse = adresse;
     },
   },
 };
