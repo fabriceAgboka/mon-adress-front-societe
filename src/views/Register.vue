@@ -219,8 +219,7 @@
                   Erreur lors de la validation du formulaire. Veuillez remplir
                   tous les champs obligatoire</small
                 >
-                <addresse-form @change="set_adresse()" />
-                <pre>add : {{ form.adresse }}</pre>
+                <addresse-form @change="set_adresse" />
                 <!-- <b-form-group
                   label="Numéro civique(Optionnel)"
                   label-for="login-numero"
@@ -441,6 +440,8 @@ export default {
   },
   methods: {
     getSelectedCategoryIds() {
+      // this.form.adresse = this.$refs.addresseForm.adresse;
+
       if (
         this.form.societe_categories_data &&
         this.form.societe_categories_data.length > 0
@@ -527,6 +528,7 @@ export default {
     },
 
     set_adresse(adresse) {
+      console.log("set_adresse", adresse);
       this.form.adresse = adresse;
     },
   },
