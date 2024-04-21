@@ -7,10 +7,10 @@
 
       <div class="row">
         <div class="col-md-6">
-          <total :entity="statistics" />
+          <total :entity="statistics" :auth="user" style="height: 500px" />
         </div>
         <div class="col-md-6">
-          <pie :statistics="statistics" style="height: 400px" />
+          <pie :statistics="statistics" style="height: 500px" />
         </div>
       </div>
     </div>

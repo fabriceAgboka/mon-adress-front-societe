@@ -56,6 +56,23 @@
         {{ telephone }}
       </p>
     </div>
+
+    <div v-if="auth">
+      <p style="color: #000; font-size: 15px">
+        Email de l'administrateur(vous) :
+      </p>
+      <p
+        style="
+          color: #014612;
+          font-size: 22px;
+          margin-top: -15px;
+          margin-bottom: 8%;
+          font-weight: 500;
+        "
+      >
+        {{ auth.email }}
+      </p>
+    </div>
   </div>
 </template>
 
@@ -72,6 +89,10 @@ export default {
     entity: {
       type: Object,
       require: true,
+    },
+    auth: {
+      type: Object,
+      require: false,
     },
   },
   data() {

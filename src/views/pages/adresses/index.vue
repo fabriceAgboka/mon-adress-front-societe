@@ -133,7 +133,7 @@
                           icon="CheckIcon"
                           class="mr-50 text-success"
                         />
-                        <span>A jours</span>
+                        <span>Mettre à jou</span>
                       </b-dropdown-item>
                     </b-dropdown>
                   </span>

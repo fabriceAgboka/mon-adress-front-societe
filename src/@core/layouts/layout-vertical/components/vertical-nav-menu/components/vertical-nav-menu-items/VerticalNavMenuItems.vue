@@ -7,6 +7,15 @@
       :key="item.header || item.title"
       :item="item"
     />
+    <br />
+
+    <b-link
+      class="ml-25 warning"
+      href="https://monadresseplus.ca/#overview"
+      target="_blank"
+    >
+      Comment ca marche ?</b-link
+    >
 
     <b-button
       type="submit"
@@ -20,7 +29,7 @@
 </template>
 
 <script>
-import { BButton } from "bootstrap-vue";
+import { BButton, BLink } from "bootstrap-vue";
 import { resolveVerticalNavMenuItemComponent as resolveNavItemComponent } from "@core/layouts/utils";
 import { provide, ref } from "@vue/composition-api";
 import VerticalNavMenuHeader from "../vertical-nav-menu-header";
@@ -33,6 +42,7 @@ export default {
   watch: {},
   components: {
     BButton,
+    BLink,
     VerticalNavMenuHeader,
     VerticalNavMenuLink,
     VerticalNavMenuGroup,
