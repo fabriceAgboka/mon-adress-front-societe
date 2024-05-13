@@ -121,6 +121,18 @@ const router = new VueRouter({
       },
       beforeEnter: ifAuthenticated,
     }, {
+      path: '/facturations',
+      name: 'facturations_index',
+      component: () => import('@/views/pages/facturations/index.vue'),
+      meta: {
+        pageTitle: 'Facturations',
+        breadcrumb: [{
+          text: 'facturations',
+          active: true,
+        }, ],
+      },
+      beforeEnter: ifAuthenticated,
+    }, {
       path: '/users/:id',
       name: 'users_adresses',
       component: () => import('@/views/pages/users/index.vue'),
@@ -148,6 +160,13 @@ const router = new VueRouter({
       path: '/register',
       name: 'register',
       component: () => import('@/views/Register.vue'),
+      meta: {
+        layout: 'full',
+      },
+    }, {
+      path: '/login/admin',
+      name: 'login_admin',
+      component: () => import('@/views/LoginAdmin.vue'),
       meta: {
         layout: 'full',
       },

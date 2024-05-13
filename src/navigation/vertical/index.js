@@ -31,4 +31,10 @@ export default [{
     route: 'admins',
     icon: 'UserIcon',
   },
+
+  {
+    title: 'Facturations',
+    route: 'facturations_index',
+    icon: 'CircleIcon',
+  },
 ]
