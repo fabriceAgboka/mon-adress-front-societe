@@ -12,7 +12,7 @@
     <b-button
       class="ml-25"
       variant="warning"
-      href="https://monadresseplus.ca/#overview"
+      href="https://monadresseplus.ca/comment-ca-marche/"
       target="_blank"
     >
       <svg
